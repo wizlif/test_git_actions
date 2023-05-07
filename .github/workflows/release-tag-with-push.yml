@@ -17,7 +17,9 @@ jobs:
                 echo "RELEASE_VERSION=$(
                     echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
                     )" >> $GITHUB_OUTPUT
-
+            - name: Log event properties
+              run: |
+                echo ${{github.event}}
             - name: Echo tag
               run: |
                 echo ${{steps.get_version.outputs.RELEASE_VERSION}}
