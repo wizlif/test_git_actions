@@ -19,7 +19,7 @@ jobs:
                     )" >> $GITHUB_OUTPUT
             - name: Log event properties
               run: |
-                echo ${{github.event}}
+                echo ${{toJson(github.event)}}
             - name: Echo tag
               run: |
                 echo ${{steps.get_version.outputs.RELEASE_VERSION}}
