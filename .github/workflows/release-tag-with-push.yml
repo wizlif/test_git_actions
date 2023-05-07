@@ -1,10 +1,12 @@
-name: Create release tag
+name: Create release tag with push
 
-on: create
+on:
+  push:
+    branches:
+      - 'releases/**'
 
 jobs:
     create-tag:
-        if: ${{ contains(github.ref, 'refs/heads/releases/') }}
         runs-on: ubuntu-latest
         env:
             GITHUB_SHORT_REF: ${{ github.ref_name }}
