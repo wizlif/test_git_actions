@@ -7,6 +7,7 @@ on:
 
 jobs:
     create-tag:
+        if: github.event.created
         runs-on: ubuntu-latest
         env:
             GITHUB_SHORT_REF: ${{ github.ref_name }}
@@ -17,9 +18,13 @@ jobs:
                 echo "RELEASE_VERSION=$(
                     echo $GITHUB_SHORT_REF | rev | cut -d/ -f1 | rev
                     )" >> $GITHUB_OUTPUT
-            - name: Log event properties
-              run: |
-                echo ${{toJson(github.event)}}
-            - name: Echo tag
-              run: |
-                echo ${{steps.get_version.outputs.RELEASE_VERSION}}
+            - name: Create tag
+              uses: actions/github-script@v6
+              with:
+                script: |
+                    github.rest.git.createRef({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        ref: 'refs/tags/${{steps.get_version.outputs.RELEASE_VERSION}}',
+                        sha: context.sha
+                    })
