@@ -1,9 +1,9 @@
-name: Create release tag with push
+name: Echo release tag
 
 on:
-  create:
+  push:
     tags:
-      - '*'
+      - 'common-v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
     create-tag:
