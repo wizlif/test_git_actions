@@ -1,7 +1,7 @@
 name: Create release tag with push
 
 on:
-  push:
+  create:
     tags:
       - '*'
 
