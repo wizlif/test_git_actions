@@ -1,4 +1,4 @@
-name: Deploy to production
+name: Job Share
 
 # Controls when the workflow will run
 on:
