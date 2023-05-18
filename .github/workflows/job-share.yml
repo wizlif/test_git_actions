@@ -21,9 +21,9 @@ jobs:
         steps:
             - name: Log server port
               env:
-                DATA: ${{fromJson(needs.job1.outputs)}}
                 SERVER_PORT: ${{needs.job1.outputs.SERVER_PORT}}
               run: |
+                DATA=${{fromJson(needs.job1.outputs)}}
                 echo "$DATA"
                 echo "$SERVER_PORT"
 
