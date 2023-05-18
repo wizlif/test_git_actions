@@ -23,6 +23,6 @@ jobs:
               env:
                 SERVER_PORT: ${{needs.job1.outputs.SERVER_PORT}}
               run: |
-                echo "${{needs.job1.outputs}}"
+                echo "${{fromJson(needs.job1.outputs)}}"
                 echo "$SERVER_PORT"
 
