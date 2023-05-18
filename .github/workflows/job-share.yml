@@ -8,6 +8,8 @@ jobs:
   job1:
     name: Job 1
     runs-on: ubuntu-latest
+    outputs:
+        SERVER_PORT: ${{ steps.get_server_port.outputs.SERVER_PORT }}
     steps:
       - name: Get server port
         id: get_server_port
