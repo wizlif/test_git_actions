@@ -1,0 +1,28 @@
+name: Deploy to production
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+    job1:
+        name: Job 1
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get server port
+              id: get_server_port
+              run: |
+                echo "SERVER_PORT=8000"  >> $GITHUB_OUTPUT
+
+    job2:
+        needs: [job1]
+        name: Job 2
+        runs-on: ubuntu-latest
+        steps:
+            - name: Log server port
+              env:
+                SERVER_PORT: ${{needs.job1.outputs.SERVER_PORT}}
+              run: |
+                echo "${{needs.job1.outputs}}"
+                echo "$SERVER_PORT"
+
