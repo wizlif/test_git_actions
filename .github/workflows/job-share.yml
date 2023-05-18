@@ -20,6 +20,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Log server port
-        run: |
-          echo "${{fromJson(needs.job1.outputs)}}"
-          echo "$SERVER_PORT"
+        run: echo "${{fromJson(needs.job1.outputs)}}"
