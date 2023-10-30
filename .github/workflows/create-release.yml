@@ -14,7 +14,7 @@ jobs:
           - name: Get latest tag
             id: latest_tag
             run: |
-              latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.0")
+              latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.1")
               echo "latest_tag=${latest_tag}" >> $GITHUB_OUTPUT
 
           - name: Increment version
