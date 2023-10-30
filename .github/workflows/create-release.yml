@@ -1,0 +1,25 @@
+name: Echo release tag
+
+on:
+  workflow_dispatch:
+
+jobs:
+    echo-tag:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Create a new tag with generated files
+            run: |
+              git config user.name "Your GitHub Username"
+              git config user.email "your.email@example.com"
+              git tag -a v1.0 -m "Generated files from build runner"
+              git push origin v1.0
+
+          - name: Cleanup
+            run: |
+              echo "stuff" >> dummy.log
+              git rm --cached dummy.log
+              git commit -m "Remove generated files"
+              git push
