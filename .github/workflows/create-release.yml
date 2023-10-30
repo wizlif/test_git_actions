@@ -13,11 +13,38 @@ jobs:
           - name: create ignored file
             run: touch dummy.log
 
+          - name: Get latest tag
+            id: latest_tag
+            run: |
+              latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+              echo "Latest tag is $latest_tag"
+              if [ -z "$latest_tag" ]; then
+                latest_tag="v0.0.1"
+              fi
+              echo "latest_tag=${latest_tag}" >> $GITHUB_OUTPUT
+
+          - name: Increment version
+            id: increment_version
+            run: |
+              current_tag="${{ steps.latest_tag.outputs.latest_tag }}"
+              version="${current_tag#v}" # Remove the 'v' prefix
+              IFS='.' read -ra parts <<< "$version"
+              major="${parts[0]}"
+              minor="${parts[1]}"
+              patch="${parts[2]}"
+              ((patch++))
+              new_version="v${major}.${minor}.${patch}"
+              echo "New version is $new_version"
+              echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+
+
           - name: Create a new tag with generated files
+            env:
+              NEW_VERSION: ${{ steps.increment_version.outputs.new_version }}
             run: |
               git config user.name "Your GitHub Username"
               git config user.email "your.email@example.com"
-              git add -f dummy.log
+              git add -f "${NEW_VERSION}.log"
               git commit -m "Remove generated files"
-              git tag -a v1.0 -m "Generated files from build runner"
-              git push origin v1.0
+              git tag -a $NEW_VERSION -m "Generated files from build runner"
+              git push origin $NEW_VERSION
