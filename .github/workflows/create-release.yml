@@ -17,9 +17,11 @@ jobs:
               git tag -a v1.0 -m "Generated files from build runner"
               git push origin v1.0
 
+          - name: create ignored file
+            run: touch dummy.log
+
           - name: Cleanup
             run: |
-              touch dummy.log
               git rm --cached dummy.log
               git commit -m "Remove generated files"
               git push
