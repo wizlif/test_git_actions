@@ -19,7 +19,7 @@ jobs:
 
           - name: Cleanup
             run: |
-              echo "stuff" >> dummy.log
+              echo "stuff" > dummy.log
               git rm --cached dummy.log
               git commit -m "Remove generated files"
               git push
