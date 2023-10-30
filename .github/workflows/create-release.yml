@@ -1,4 +1,4 @@
-name: Echo release tag
+name: Create release tag with ignored files
 
 on:
   workflow_dispatch:
