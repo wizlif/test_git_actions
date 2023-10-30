@@ -10,21 +10,14 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v3
 
+          - name: create ignored file
+            run: touch dummy.log
+
           - name: Create a new tag with generated files
             run: |
               git config user.name "Your GitHub Username"
               git config user.email "your.email@example.com"
-              git tag -a v1.0 -m "Generated files from build runner"
-              git push origin v1.0
-
-          - name: create ignored file
-            run: touch dummy.log
-
-          # - name: Update .gitignore
-          #   run: |
-          #     sed -i 's/^*.log/#/g' .gitignore
-          - name: Cleanup
-            run: |
               git add -f dummy.log
               git commit -m "Remove generated files"
-              git push
+              git tag -a v1.0 -m "Generated files from build runner"
+              git push origin v1.0
