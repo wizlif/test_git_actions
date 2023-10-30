@@ -10,13 +10,11 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v3
           - run: git fetch --prune --unshallow --tags
-          - name: create ignored file
-            run: touch dummy.log
 
           - name: Get latest tag
             id: latest_tag
             run: |
-              latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.1")
+              latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "v0.0.0")
               echo "latest_tag=${latest_tag}" >> $GITHUB_OUTPUT
 
           - name: Increment version
@@ -33,13 +31,13 @@ jobs:
               echo "New version is $new_version"
               echo "new_version=${new_version}" >> $GITHUB_OUTPUT
 
-
           - name: Create a new tag with generated files
             env:
               NEW_VERSION: ${{ steps.increment_version.outputs.new_version }}
             run: |
               git config user.name "Your GitHub Username"
               git config user.email "your.email@example.com"
+              touch "${NEW_VERSION}.log"
               git add -f "${NEW_VERSION}.log"
               git commit -m "Remove generated files"
               git tag -a $NEW_VERSION -m "Generated files from build runner"
