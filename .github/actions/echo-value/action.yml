@@ -15,3 +15,13 @@ runs:
         echo "EQ_FALSE: ${{ inputs.COOL_BOOLEAN == false }}"
         echo "EQ_STR_TRUE: ${{ inputs.COOL_BOOLEAN == 'true' }}"
         echo "EQ_STR_FALSE: ${{ inputs.COOL_BOOLEAN == 'false' }}"
+    - name: 📦 Execute if true
+      if: ${{ inputs.COOL_BOOLEAN == 'true' }}
+      shell: bash
+      run: |
+        echo "COOL_BOOLEAN is true"
+    - name: 📦 Execute if false
+      if: ${{ inputs.COOL_BOOLEAN == 'false' }}
+      shell: bash
+      run: |
+        echo "COOL_BOOLEAN is false"
