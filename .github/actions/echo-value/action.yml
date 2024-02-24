@@ -13,3 +13,5 @@ runs:
         echo "COOL_BOOLEAN: ${{ inputs.COOL_BOOLEAN }}"
         echo "EQ_TRUE: ${{ inputs.COOL_BOOLEAN == true }}"
         echo "EQ_FALSE: ${{ inputs.COOL_BOOLEAN == false }}"
+        echo 'EQ_STR_TRUE: ${{ inputs.COOL_BOOLEAN == "true" }}'
+        echo 'EQ_STR_FALSE: ${{ inputs.COOL_BOOLEAN == "false" }}'
