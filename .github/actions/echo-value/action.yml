@@ -3,7 +3,7 @@ inputs:
   COOL_BOOLEAN:
     description: "Boolean value to echo"
     type: boolean
-    default: true
+    default: false
 runs:
   using: "composite"
   steps:
