@@ -1,0 +1,19 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      COOL_BOOLEAN: 
+        description: 'Boolean to echo'
+        type: boolean
+        default: false
+
+jobs:
+  echo-boolean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Echo Boolean
+        uses: wizlif/test_git_actions/.github/actions/echo-value@main
+        with:
+          COOL_BOOLEAN: ${{ inputs.COOL_BOOLEAN }}

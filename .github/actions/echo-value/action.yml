@@ -1,0 +1,13 @@
+name: "Echo value"
+inputs:
+  COOL_BOOLEAN:
+    description: "Boolean value to echo"
+    type: boolean
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - name: ⚙️ Echo
+      shell: bash
+      run: |
+        echo "COOL_BOOLEAN: ${{ inputs.COOL_BOOLEAN }}"
